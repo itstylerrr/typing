@@ -1,101 +1,134 @@
-import { Component } from "react";
+import { resetTest } from "helpers/resetTest";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setTheme, setTime } from "store/actions";
+import { State } from "store/reducer";
 import "stylesheets/Header.scss";
+import "stylesheets/AnimatedTheme.scss";
 
 interface Options {
 	time: number[];
 	theme: string[];
-	type: string[];
+}
+
+interface AnimationProps {
+	top: number;
+	left: number;
+	theme: string;
 }
 
 const options: Options = {
 	time: [15, 30, 45, 60, 120],
-	type: [
-		"words",
-		"sentances",
-		"quotes",
-	],
 	theme: [
 		"default",
-		"thanksgiving",
-		"dark",
-		"dark-cherry",
-		"sky",
+		"mkbhd",
+		"mocha",
 		"coral",
 		"ocean",
 		"azure",
 		"forest",
-		// "rose-milk",
-	]
+		"rose-milk",
+	],
 };
 
-interface Props {
-	changeTimeLimit(x: number): void;
-}
+export default function Header() {
+	const { timerId, timeLimit, theme } = useSelector((state: State) => state);
+	const [animationProps, setAnimationProps] =
+		useState<AnimationProps | null>();
+	const dispatch = useDispatch();
 
-export default class Header extends Component<Props> {
-	componentDidMount() {
+	useEffect(() => {
 		const theme = localStorage.getItem("theme") || "default";
 		const time = parseInt(localStorage.getItem("time") || "60", 10);
-		document.body.children[1].classList.add(theme);
-		const selectedElements = document.querySelectorAll(
-			`button[value="${theme}"], button[value="${time}"]`
-		);
-		selectedElements.forEach((el) => {
-			el.classList.add("selected");
-		});
-	}
+		dispatch(setTime(time));
+		dispatch(setTheme(theme));
+	}, [dispatch]);
 
-	handleOptions = ({ target }: React.MouseEvent) => {
+	// Set Theme
+	useEffect(() => {
+		if (theme) {
+			document
+				.querySelector(`button[value="${theme}"]`)
+				?.classList.add("selected");
+			document.body.children[1].classList.remove(...options.theme);
+			document.body.children[1].classList.add(theme);
+			localStorage.setItem("theme", theme);
+		}
+	}, [dispatch, theme]);
+
+	// Set Time
+	useEffect(() => {
+		if (timeLimit !== 0) {
+			document
+				.querySelector(`button[value="${timeLimit}"]`)
+				?.classList.add("selected");
+
+			dispatch(setTime(timeLimit));
+			localStorage.setItem("time", `${timeLimit}`);
+		}
+	}, [dispatch, timeLimit]);
+
+	const handleOptions = ({ target, clientX, clientY }: React.MouseEvent) => {
 		if (target instanceof HTMLButtonElement && target.dataset.option) {
-			switch (target.dataset.option) {
-				case "theme":
-					document.body.children[1].classList.remove(
-						...options.theme
-					);
-					document.body.children[1].classList.add(target.value);
-					break;
-				case "time":
-					this.props.changeTimeLimit(+target.value);
-					break;
-				case "type":
-					
-				break;
+			if (target.value === theme || +target.value === timeLimit) {
+				target.blur();
+				return;
 			}
-			localStorage.setItem(target.dataset.option, target.value);
 			target.parentElement!.childNodes.forEach((el) => {
 				if (el instanceof HTMLButtonElement)
 					el.classList.remove("selected");
 			});
-			target.classList.add("selected");
+			switch (target.dataset.option) {
+				case "theme":
+					setTimeout(() => {
+						dispatch(setTheme(target.value));
+					}, 750);
+					setAnimationProps({
+						top: clientY,
+						left: clientX,
+						theme: target.value,
+					});
+					break;
+				case "time":
+					dispatch(setTime(+target.value));
+					resetTest();
+					break;
+			}
 			target.blur();
 		}
 	};
 
-	render() {
-		return (
-			<header>
-				<img src='https://raw.githubusercontent.com/itstylerrr/typing/main/public/favicon.png' alt='logo'/>
-				<a href="." className="brand">
-					tyler-type
-				</a>
-				<div className="buttons">
-					{Object.entries(options).map(([option, choices]) => (
-						<div key={option} className={option}>
-							{option}:
-							{choices.map((choice: string) => (
-								<button
-									className="mini"
-									key={choice}
-									data-option={option}
-									value={choice}
-									onClick={(e) => this.handleOptions(e)}>
-									{choice}
-								</button>
-							))}
-						</div>
-					))}
-				</div>
-			</header>
-		);
-	}
+	return (
+		<header className={timerId ? "hidden" : undefined}>
+			<a href="." className="brand">
+				typing-test
+			</a>
+			<div className="buttons">
+				{Object.entries(options).map(([option, choices]) => (
+					<div key={option} className={option}>
+						{option}:
+						{choices.map((choice: string) => (
+							<button
+								className="mini"
+								key={choice}
+								data-option={option}
+								value={choice}
+								onClick={(e) => handleOptions(e)}>
+								{choice}
+							</button>
+						))}
+					</div>
+				))}
+			</div>
+			{animationProps ? (
+				<div
+					className={`animated-theme ${animationProps.theme}`}
+					style={{
+						top: animationProps.top,
+						left: animationProps.left,
+					}}
+					onAnimationEnd={() => setAnimationProps(null)}></div>
+			) : null}
+		</header>
+	);
 }

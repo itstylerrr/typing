@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/itstylerrr.github.io/typing/static/css/main.5b4c0345.chunk.css",
+    "main.js": "/itstylerrr.github.io/typing/static/js/main.475e7cf9.chunk.js",
+    "main.js.map": "/itstylerrr.github.io/typing/static/js/main.475e7cf9.chunk.js.map",
+    "runtime-main.js": "/itstylerrr.github.io/typing/static/js/runtime-main.c6cc5366.js",
+    "runtime-main.js.map": "/itstylerrr.github.io/typing/static/js/runtime-main.c6cc5366.js.map",
+    "static/js/2.6fac23f1.chunk.js": "/itstylerrr.github.io/typing/static/js/2.6fac23f1.chunk.js",
+    "static/js/2.6fac23f1.chunk.js.map": "/itstylerrr.github.io/typing/static/js/2.6fac23f1.chunk.js.map",
+    "index.html": "/itstylerrr.github.io/typing/index.html",
+    "static/css/main.5b4c0345.chunk.css.map": "/itstylerrr.github.io/typing/static/css/main.5b4c0345.chunk.css.map",
+    "static/js/2.6fac23f1.chunk.js.LICENSE.txt": "/itstylerrr.github.io/typing/static/js/2.6fac23f1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.c6cc5366.js",
+    "static/js/2.6fac23f1.chunk.js",
+    "static/css/main.5b4c0345.chunk.css",
+    "static/js/main.475e7cf9.chunk.js"
+  ]
+}

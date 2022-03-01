@@ -26,12 +26,28 @@ export default function Result() {
 						</td>
 					</tr>
 					<tr>
-						<th>Correct Words:</th>
-						<td>{result.filter((x) => x).length}</td>
+						<td>
+							<th>Total Chars:</th>
+							<td>{correctChars}</td>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<th>Total Words:</th>
+							<td>{result.filter((x) => x).length + result.filter((x) => !x).length}</td>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<th>Correct Words:</th>
+							<td>{result.filter((x) => x).length}</td>
+						</td>
 					</tr>
 					<tr className="wrong">
-						<th>Incorrect Words:</th>
-						<td>{result.filter((x) => !x).length}</td>
+						<td>
+							<th>Incorrect Words:</th>
+							<td>{result.filter((x) => !x).length}</td>
+						</td>
 					</tr>
 					<tr>
 						<td colSpan={2} align="center">

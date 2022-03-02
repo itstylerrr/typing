@@ -8,7 +8,7 @@
 	z-index: 99;
 	animation: grow 1s ease-in-out;
 	&.default {
-		background-color: black !important;
+		background-color: #151515 !important;
 	}
 	@keyframes grow {
 		0% {

@@ -38,38 +38,38 @@
 			border: 1px solid var(--fg-color);
 			box-shadow: 5px 5px var(--fg-color);
 			scrollbar-width: thin;
-			h2 {
-				position: sticky;
-				top: 0;
-				background-color: var(--bg-color);
-				padding: 15px;
-				margin: 0;
-			}
-			.contributor {
-				display: flex;
-				flex-direction: row;
-				padding: 10px;
-				img {
-					border-radius: 50%;
-					margin: 5px;
+				h2 {
+					position: sticky;
+					top: 0;
+					background-color: var(--bg-color);
+					padding: 15px;
+					margin: 0;
 				}
-				.contributor-details {
+				.contributor {
 					display: flex;
-					flex-direction: column;
-					justify-content: space-around;
-					padding: 5px 15px;
+					flex-direction: row;
+					padding: 10px;
+					img {
+						border-radius: 50%;
+						margin: 5px;
+					}
+					.contributor-details {
+						display: flex;
+						flex-direction: column;
+						justify-content: space-around;
+						padding: 5px 15px;
+					}
 				}
-			}
-			&::-webkit-scrollbar {
-				width: 5px;
-			}
-			&::-webkit-scrollbar-thumb {
-				background-color: var(--font-color);
-				border-radius: 10px;
-			}
-			&::-webkit-scrollbar-track-piece {
-				background-color: var(--bg-color);
+				&::-webkit-scrollbar {
+					width: 5px;
+				}
+				&::-webkit-scrollbar-thumb {
+					background-color: var(--font-color);
+					border-radius: 10px;
+				}
+				&::-webkit-scrollbar-track-piece {
+					background-color: var(--bg-color);
+				}
 			}
 		}
 	}
-}

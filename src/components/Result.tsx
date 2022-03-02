@@ -15,6 +15,13 @@ export default function Result() {
 	result.forEach((r, idx) => {
 		if (r) correctChars += wordList[idx].length;
 	});
+	var totalWords = result.filter((x) => x).length + result.filter((x) => !x).length
+	var correctWords = result.filter((x) => x).length;
+	var incorrectWords = result.filter((x) => !x).length;
+	var accuracyUnround = correctWords/totalWords;
+	var accuracyUnroundTotal = accuracyUnround * 100
+	const accuracy = Math.round(accuracyUnroundTotal)
+	console.log(accuracyUnround)
 	const wpm = ((correctChars + spaces) * 60) / timeLimit / 5;
 	return (
 		<div className="result">
@@ -34,19 +41,25 @@ export default function Result() {
 					<tr>
 						<td>
 							<th>Total Words:</th>
-							<td>{result.filter((x) => x).length + result.filter((x) => !x).length}</td>
+							<td>{totalWords}</td>
 						</td>
 					</tr>
 					<tr>
 						<td>
 							<th>Correct Words:</th>
-							<td>{result.filter((x) => x).length}</td>
+							<td>{correctWords}</td>
 						</td>
 					</tr>
 					<tr className="wrong">
 						<td>
 							<th>Incorrect Words:</th>
-							<td>{result.filter((x) => !x).length}</td>
+							<td>{incorrectWords}</td>
+						</td>
+					</tr>
+					<tr className="wrong">
+						<td>
+							<th>Accuracy:</th>
+							<td>{accuracy}%</td>
 						</td>
 					</tr>
 					<tr>

@@ -23,7 +23,7 @@ const options: Options = {
 	theme: [
 		"default",
 		"mkbhd",
-		"mocha",
+		"magnolia",
 		"coral",
 		"ocean",
 		"azure",
